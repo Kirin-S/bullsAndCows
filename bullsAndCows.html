@@ -7,7 +7,7 @@
   <title>Bulls And Cows</title>
 </head>
 <body>
-
+  
   <script>
 
     function getRandomInt(min, max) {
@@ -24,20 +24,27 @@
       fNum = fNum.toString();     // Перевод в строку для итерирования
 
       for (let i = 0; i < fNum.length; i++) {
-        let numberOfLetter = 0;               // Получаем цифру из числа игрока
+        console.log(number[i]);
 
-        // Берём цифру или её номер в числе
-
-        console.log(numberOfLetter);
-
-        if (numberOfLetter === -1) continue;  // Цифра не найдена в искомом числе
-        else if (numberOfLetter === i) {      // Если место цифоы в обоих числах одинаково
+        if (number[i] === fNum[i]) {        // Если место цифры в обоих числах одинаково
           inPlace++;
-          strNumsIn += fNum[i] + ' ';
+          strNumsIn += number[i] + ' ';
         }
         else {
-          outPlace++;
-          strNumsOut += fNum[numberOfLetter] + ' ';
+          for (let j = 0; j < fNum.length; j++) {
+            if (i === j) continue;
+            if (number[i] === fNum[j]) {    // Если цифра из числа игрока есть в искомом
+              outPlace++;
+              strNumsOut += number[i] + ' ';
+              // В правилах и примере не было понятно. Если в числе юзера
+              // будет цифра, которая в искомом встречается несколько раз
+              // не на своих местах, то 
+              // (1) показать, что их несколько;
+              // (2) показать лишь какую он угадал.
+              // Если (1), то убрать строку ниже
+              break;
+            }
+          }
         }
       }
 
@@ -54,7 +61,7 @@
     // Кол-во попыток
     let tries = getRandomInt(3, 10);
     // Подсказка
-    alert(`ПОДСКАЗКА!Число: ${findingNumber}    Попыток: ${tries}`);
+    alert(`ПОДСКАЗКА!      Число: ${findingNumber}    Попыток: ${tries}`);
 
     for (let i = 0; i < tries; i++) {
       let number = prompt("Угадайте число");
