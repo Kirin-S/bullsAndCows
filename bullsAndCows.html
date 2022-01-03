@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bulls And Cows</title>
+</head>
+<body>
+
+  <script>
+
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min) + min);
+    }
+
+    function checkNum(fNum, number) {
+      // Счётчики
+      let inPlace = 0;            // Для совпавших на своих местах
+      let outPlace = 0;           // Для совпавших не на своих местах
+      let strNumsIn = '';
+      let strNumsOut = '';
+
+      fNum = fNum.toString();     // Перевод в строку для итерирования
+
+      for (let i = 0; i < fNum.length; i++) {
+        let numberOfLetter = 0;               // Получаем цифру из числа игрока
+
+        // Берём цифру или её номер в числе
+
+        console.log(numberOfLetter);
+
+        if (numberOfLetter === -1) continue;  // Цифра не найдена в искомом числе
+        else if (numberOfLetter === i) {      // Если место цифоы в обоих числах одинаково
+          inPlace++;
+          strNumsIn += fNum[i] + ' ';
+        }
+        else {
+          outPlace++;
+          strNumsOut += fNum[numberOfLetter] + ' ';
+        }
+      }
+
+      return {
+        inPlace,
+        outPlace,
+        strNumsIn: strNumsIn.trim(),
+        strNumsOut: strNumsOut.trim()
+      }
+    }
+
+    // Число компьютера
+    let findingNumber = getRandomInt(99, 1000000);
+    // Кол-во попыток
+    let tries = getRandomInt(3, 10);
+    // Подсказка
+    alert(`ПОДСКАЗКА!Число: ${findingNumber}    Попыток: ${tries}`);
+
+    for (let i = 0; i < tries; i++) {
+      let number = prompt("Угадайте число");
+
+      if (!number) {
+        alert("Отмена игры");
+        break;
+      }
+
+      if (findingNumber == number) {
+        alert("Вы угадали!");
+        break;
+      }
+      // Ответ компьютера
+      else if (i < tries - 1) {
+        let answer = checkNum(findingNumber, number);
+        alert(`Угадано на своих местах: ${answer.inPlace} (${answer.strNumsIn}) Угадано не на местах ${answer.outPlace} (${answer.strNumsOut})`);
+      }
+      else if (i === tries) alert("Попытки закончились. Вы не отгадали.");
+    }
+
+  </script>
+</body>
+</html>
